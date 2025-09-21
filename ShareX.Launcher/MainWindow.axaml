@@ -1,0 +1,207 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ShareX.Launcher.MainWindow"
+        Title="ShareX 15.0"
+        Width="1000" Height="700"
+        MinWidth="800" MinHeight="600"
+        Background="#FF1E1E1E">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" MinWidth="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Left Sidebar Navigation -->
+        <Border Grid.Column="0" Background="#FF252526" BorderBrush="#FF3E3E42" BorderThickness="0,0,1,0">
+            <ScrollViewer>
+                <StackPanel Margin="0,10">
+                    
+                    <!-- Core Functions Section -->
+                    <TextBlock Text="CORE FUNCTIONS" FontWeight="Bold" FontSize="11" 
+                               Foreground="#FF888888" Margin="10,5,10,5"/>
+                    
+                    <Button x:Name="CaptureButton" Content="📷 Capture" 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnCaptureClick" Tag="Capture"/>
+                    <Button x:Name="UploadButton" Content="⬆ Upload" 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnUploadClick" Tag="Upload"/>
+                    <Button x:Name="WorkflowsButton" Content="⊞ Workflows" 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnWorkflowsClick" Tag="Workflows"/>
+                    <Button x:Name="ToolsButton" Content="💼 Tools" 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnToolsClick" Tag="Tools"/>
+                    
+                    <!-- Task Management Section -->
+                    <TextBlock Text="TASK MANAGEMENT" FontWeight="Bold" FontSize="11" 
+                               Foreground="#FF888888" Margin="10,15,10,5"/>
+                    
+                    <Button x:Name="AfterCaptureTasksButton" Content="📄 After capture tasks" 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnAfterCaptureTasksClick" Tag="AfterCaptureTasks"/>
+                    <Button x:Name="AfterUploadTasksButton" Content="☁ After upload tasks" 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnAfterUploadTasksClick" Tag="AfterUploadTasks"/>
+                    <Button x:Name="DestinationsButton" Content="🌐 Destinations" 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnDestinationsClick" Tag="Destinations"/>
+                    
+                    <!-- Settings Section -->
+                    <TextBlock Text="SETTINGS" FontWeight="Bold" FontSize="11" 
+                               Foreground="#FF888888" Margin="10,15,10,5"/>
+                    
+                    <Button x:Name="ApplicationSettingsButton" Content="🔧 Application settings..." 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnApplicationSettingsClick" Tag="ApplicationSettings"/>
+                    <Button x:Name="TaskSettingsButton" Content="⚙ Task settings..." 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnTaskSettingsClick" Tag="TaskSettings"/>
+                    <Button x:Name="HotkeySettingsButton" Content="⌨ Hotkey settings..." 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnHotkeySettingsClick" Tag="HotkeySettings"/>
+                    
+                    <!-- Files Section -->
+                    <TextBlock Text="FILES" FontWeight="Bold" FontSize="11" 
+                               Foreground="#FF888888" Margin="10,15,10,5"/>
+                    
+                    <Button x:Name="ScreenshotsFolderButton" Content="📁 Screenshots folder..." 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnScreenshotsFolderClick" Tag="ScreenshotsFolder"/>
+                    <Button x:Name="HistoryButton" Content="🕒 History..." 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnHistoryClick" Tag="History"/>
+                    <Button x:Name="ImageHistoryButton" Content="🖼 Image history..." 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnImageHistoryClick" Tag="ImageHistory"/>
+                    
+                    <!-- Debug Section -->
+                    <TextBlock Text="DEBUG" FontWeight="Bold" FontSize="11" 
+                               Foreground="#FF888888" Margin="10,15,10,5"/>
+                    
+                    <Button x:Name="DebugButton" Content="🚧 Debug" 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnDebugClick" Tag="Debug"/>
+                    
+                    <!-- Social Section -->
+                    <TextBlock Text="SOCIAL" FontWeight="Bold" FontSize="11" 
+                               Foreground="#FF888888" Margin="10,15,10,5"/>
+                    
+                    <Button x:Name="DonateButton" Content="❤ Donate..." 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnDonateClick" Tag="Donate"/>
+                    <Button x:Name="TwitterButton" Content="🐦 Twitter..." 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnTwitterClick" Tag="Twitter"/>
+                    <Button x:Name="DiscordButton" Content="💬 Discord..." 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnDiscordClick" Tag="Discord"/>
+                    <Button x:Name="AboutButton" Content="👑 About..." 
+                            HorizontalAlignment="Stretch" Margin="5,2" 
+                            Click="OnAboutClick" Tag="About"/>
+                    
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        
+        <!-- Main Content Area -->
+        <Border Grid.Column="1" Background="#FF1E1E1E">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Content Header -->
+                <Border Grid.Row="0" Background="#FF2D2D30" Height="40">
+                    <TextBlock x:Name="ContentHeaderText" Text="Recent Captures" 
+                               VerticalAlignment="Center" Margin="15,0" FontSize="14"/>
+                </Border>
+                
+                <!-- Main Content -->
+                <Grid Grid.Row="1" Margin="15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Image Info -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+                        <TextBlock x:Name="ImageFileNameText" Text="ShareX_Logo.png" 
+                                   FontSize="16" FontWeight="Bold" Margin="0,0,15,0"/>
+                    </StackPanel>
+                    
+                    <!-- Image Preview Area -->
+                    <Border Grid.Row="1" Background="#FF2D2D30" BorderBrush="#FF3E3E42" 
+                            BorderThickness="2" CornerRadius="4">
+                        <Grid>
+                            <!-- Placeholder for image preview -->
+                            <Viewbox Stretch="Uniform" MaxWidth="400" MaxHeight="300">
+                                <Canvas Width="100" Height="100">
+                                    <!-- ShareX Logo representation -->
+                                    <Ellipse Width="80" Height="80" Fill="#FF007ACC" Opacity="0.3"/>
+                                    <Ellipse Width="60" Height="60" Fill="#FF00D4AA" Opacity="0.3" 
+                                             Canvas.Left="20" Canvas.Top="20"/>
+                                    <Ellipse Width="40" Height="40" Fill="#FFFFD700" Opacity="0.3" 
+                                             Canvas.Left="30" Canvas.Top="30"/>
+                                    <Ellipse Width="20" Height="20" Fill="#FFFF6B6B" Opacity="0.3" 
+                                             Canvas.Left="40" Canvas.Top="40"/>
+                                </Canvas>
+                            </Viewbox>
+                            
+                            <!-- Context Menu Trigger -->
+                            <Border Background="Transparent" 
+                                    PointerPressed="OnImagePreviewPointerPressed">
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="📁 Open" Click="OnContextMenuOpen"/>
+                                        <MenuItem Header="📋 Copy" Click="OnContextMenuCopy"/>
+                                        <MenuItem Header="⬆ Upload" Click="OnContextMenuUpload"/>
+                                        <MenuItem Header="⬇ Download" Click="OnContextMenuDownload"/>
+                                        <Separator/>
+                                        <MenuItem Header="✏ Edit image..." Click="OnContextMenuEditImage"/>
+                                        <MenuItem Header="🎨 Add image effects..." Click="OnContextMenuImageEffects"/>
+                                        <MenuItem Header="📌 Pin to screen" Click="OnContextMenuPinToScreen"/>
+                                        <Separator/>
+                                        <MenuItem Header="▶ Run action" Click="OnContextMenuRunAction"/>
+                                        <MenuItem Header="❌ Remove task from list" Click="OnContextMenuRemoveTask"/>
+                                        <MenuItem Header="🗑 Delete file locally..." Click="OnContextMenuDeleteFile"/>
+                                        <Separator/>
+                                        <MenuItem Header="🔗 Shorten URL" Click="OnContextMenuShortenUrl"/>
+                                        <MenuItem Header="📤 Share URL" Click="OnContextMenuShareUrl"/>
+                                        <MenuItem Header="🔍 Google image search..." Click="OnContextMenuGoogleSearch"/>
+                                        <MenuItem Header="🔍 Bing visual search (OCR)..." Click="OnContextMenuBingSearch"/>
+                                        <MenuItem Header="📱 Show QR code..." Click="OnContextMenuShowQRCode"/>
+                                        <MenuItem Header="📄 OCR image..." Click="OnContextMenuOCR"/>
+                                        <Separator/>
+                                        <MenuItem Header="🗑 Clear task list" Click="OnContextMenuClearTaskList"/>
+                                        <MenuItem Header="📋 Switch to list view" Click="OnContextMenuSwitchToListView"/>
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+                
+                <!-- Status Bar -->
+                <Border Grid.Row="2" Background="#FF2D2D30" Height="30" 
+                        BorderBrush="#FF3E3E42" BorderThickness="0,1,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock x:Name="StatusText" Text="Ready" 
+                                   VerticalAlignment="Center" Margin="15,0" Grid.Column="0"/>
+                        <TextBlock Text="ShareX 15.0" 
+                                   VerticalAlignment="Center" Margin="15,0" Grid.Column="1"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+    
+</Window>
