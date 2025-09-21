@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Description>ShareX for macOS - Simple MVP</Description>
+    <UseAvaloniaUI>true</UseAvaloniaUI>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.12" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.12" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.12" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
+  </ItemGroup>
+</Project>

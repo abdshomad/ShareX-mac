@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0-windows</TargetFramework>
-    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <AssemblyName>ShareX_NativeMessagingHost</AssemblyName>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>

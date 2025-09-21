@@ -584,11 +584,7 @@ namespace ShareX.HelpersLib
         {
             try
             {
-                using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
-                {
-                    WindowsPrincipal principal = new WindowsPrincipal(identity);
-                    return principal.IsInRole(WindowsBuiltInRole.Administrator);
-                }
+                return Platform.PlatformFactory.Instance.IsAdministrator();
             }
             catch
             {
@@ -655,7 +651,7 @@ namespace ShareX.HelpersLib
 
         public static string GetOperatingSystemProductName(bool includeBit = false)
         {
-            string productName = RegistryHelpers.GetValueString(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ProductName", RegistryHive.LocalMachine);
+            string productName = Platform.PlatformFactory.Instance.GetOperatingSystemProductName(includeBit);
 
             if (string.IsNullOrEmpty(productName))
             {

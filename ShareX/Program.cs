@@ -35,7 +35,8 @@ using System.Runtime.Loader;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 
 #if MicrosoftStore
 using Windows.ApplicationModel;
@@ -68,7 +69,7 @@ namespace ShareX
             get
             {
                 StringBuilder sbVersionText = new StringBuilder();
-                Version version = Version.Parse(Application.ProductVersion);
+                Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version ?? new Version(1, 0, 0, 0);
                 sbVersionText.Append(version.Major + "." + version.Minor);
                 if (version.Build > 0 || version.Revision > 0) sbVersionText.Append("." + version.Build);
                 if (version.Revision > 0) sbVersionText.Append("." + version.Revision);
@@ -129,7 +130,7 @@ namespace ShareX
         internal static HotkeysConfig HotkeysConfig { get; set; }
         internal static HistoryManagerSQLite HistoryManager { get; set; }
 
-        internal static MainForm MainForm { get; private set; }
+        // MainForm removed for Avalonia implementation
         internal static Stopwatch StartTimer { get; private set; }
         internal static HotkeyManager HotkeyManager { get; set; }
         internal static WatchFolderManager WatchFolderManager { get; set; }
@@ -308,7 +309,7 @@ namespace ShareX
                         }
                         else
                         {
-                            Process.Start(Application.ExecutablePath);
+                            Process.Start(System.Reflection.Assembly.GetExecutingAssembly().Location);
                         }
                     }
                 }
@@ -319,8 +320,6 @@ namespace ShareX
 
         private static void Run()
         {
-            ApplicationConfiguration.Initialize();
-
             DebugHelper.WriteLine("ShareX starting.");
             DebugHelper.WriteLine("Version: " + VersionText);
             DebugHelper.WriteLine("Build: " + Build);
@@ -350,17 +349,18 @@ namespace ShareX
             CheckPuushMode();
             DebugWriteFlags();
 
-            SettingManager.LoadInitialSettings();
+            // Initialize settings for MVP
+            // SettingManager.LoadInitialSettings();
+            // UpdateManager = new ShareXUpdateManager();
+            // LanguageHelper.ChangeLanguage(Settings.Language);
+            // CleanupManager.CleanupAsync();
 
-            UpdateManager = new ShareXUpdateManager();
-            LanguageHelper.ChangeLanguage(Settings.Language);
-            CleanupManager.CleanupAsync();
-
-            DebugHelper.WriteLine("MainForm init started.");
-            MainForm = new MainForm();
-            DebugHelper.WriteLine("MainForm init finished.");
-
-            Application.Run(MainForm);
+            DebugHelper.WriteLine("Starting Avalonia application...");
+            
+            AppBuilder.Configure<App>()
+                .UsePlatformDetect()
+                .LogToTrace()
+                .StartWithClassicDesktopLifetime(new string[0]);
 
             CloseSequence();
         }
@@ -385,7 +385,8 @@ namespace ShareX
         {
             restartRequested = true;
             restartAsAdmin = asAdmin;
-            Application.Exit();
+            // Application.Exit() removed for Avalonia
+            Environment.Exit(0);
         }
 
         private static void SingleInstanceManager_ArgumentsReceived(string[] arguments)
@@ -509,7 +510,7 @@ namespace ShareX
                         sb.AppendLine();
                         sb.Append(e);
 
-                        MessageBox.Show(sb.ToString(), "ShareX - " + Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.WriteLine($"ShareX Error: {sb.ToString()}");
                         CustomPersonalPath = "";
                     }
                 }
@@ -611,8 +612,7 @@ namespace ShareX
                     catch (UnauthorizedAccessException e)
                     {
                         DebugHelper.WriteException(e);
-                        MessageBox.Show(string.Format(Resources.Program_WritePersonalPathConfig_Cant_access_to_file, PersonalPathConfigFilePath),
-                            "ShareX", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        Console.WriteLine($"ShareX Warning: Cannot access file {PersonalPathConfigFilePath}");
                     }
                     catch (Exception e)
                     {
@@ -646,20 +646,11 @@ namespace ShareX
             }
 #endif
 
-            // Add the event handler for handling UI thread exceptions to the event
-            Application.ThreadException += Application_ThreadException;
-
-            // Set the unhandled exception mode to force all Windows Forms errors to go through our handler
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-
             // Add the event handler for handling non-UI thread exceptions to the event
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         }
 
-        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
-        {
-            OnError(e.Exception);
-        }
+        // Application_ThreadException removed for Avalonia
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {

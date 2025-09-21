@@ -1,0 +1,51 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ShareX.Simple.MainWindow"
+        Title="ShareX for macOS"
+        Width="800" Height="600"
+        MinWidth="600" MinHeight="400">
+    
+    <DockPanel>
+        <!-- Menu Bar -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="New Capture" Click="OnNewCapture"/>
+                <MenuItem Header="Exit" Click="OnExit"/>
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem Header="Screen Capture" Click="OnScreenCapture"/>
+                <MenuItem Header="Region Capture" Click="OnRegionCapture"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About" Click="OnAbout"/>
+            </MenuItem>
+        </Menu>
+        
+        <!-- Toolbar -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
+            <Button Content="Screen Capture" Click="OnScreenCapture" Margin="5"/>
+            <Button Content="Region Capture" Click="OnRegionCapture" Margin="5"/>
+            <Button Content="Upload File" Click="OnUploadFile" Margin="5"/>
+        </StackPanel>
+        
+        <!-- Main Content -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Status/History Area -->
+            <ListBox Grid.Row="0" x:Name="HistoryListBox" Margin="10">
+                <ListBoxItem>ShareX for macOS - Ready</ListBoxItem>
+                <ListBoxItem>Click a button above to get started</ListBoxItem>
+            </ListBox>
+            
+            <!-- Status Bar -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Background="LightGray" Height="30">
+                <TextBlock Text="Ready" x:Name="StatusText" VerticalAlignment="Center" Margin="10,0"/>
+                <TextBlock Text="ShareX for macOS v1.0.0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>
