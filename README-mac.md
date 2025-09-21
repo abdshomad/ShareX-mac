@@ -41,6 +41,22 @@ cd ShareX-mac
 dotnet run --project ShareX.Simple/ShareX.Simple.csproj
 ```
 
+### 📸 Granting Screenshot Permissions
+
+**Important**: macOS requires explicit permission for screen capture. After first launch:
+
+1. **System Preferences**: Go to `System Preferences` → `Security & Privacy` → `Privacy` → `Screen Recording`
+2. **Add Application**: Click the `+` button and navigate to your terminal application (Terminal.app, iTerm2, etc.)
+3. **Enable Permission**: Check the box next to your terminal application
+4. **Restart**: Close and reopen the ShareX application
+
+**Alternative Method** (if the above doesn't work):
+1. Go to `System Preferences` → `Security & Privacy` → `Privacy` → `Screen Recording`
+2. Look for `dotnet` or `ShareX` in the list and enable it
+3. If not listed, you may need to run the app once to trigger the permission request
+
+**Note**: You may see a permission dialog on first launch. Click "OK" to allow screen recording access.
+
 ### Option 2: Manual Installation
 
 1. Download and install [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
@@ -123,6 +139,23 @@ ShareX-mac/
 - **File Upload**: Selection works, but upload services not yet implemented
 - **Hotkeys**: Global shortcuts not yet implemented
 - **Image Editing**: Basic editing tools planned for future releases
+
+## 🔧 Troubleshooting
+
+### Screenshot Permission Issues
+
+**Problem**: App launches but screenshots are black or fail to capture.
+
+**Solutions**:
+1. **Check Permissions**: Ensure the terminal app (Terminal.app, iTerm2) has Screen Recording permission
+2. **Restart App**: Close and reopen the ShareX application after granting permissions
+3. **System Restart**: In some cases, a system restart may be required for permissions to take effect
+4. **Manual Permission**: If automatic permission request doesn't appear, manually add the terminal app to Screen Recording permissions
+
+**Verification**: 
+- Go to `System Preferences` → `Security & Privacy` → `Privacy` → `Screen Recording`
+- Your terminal application should be listed and checked
+- If using iTerm2, make sure it's specifically listed (not just Terminal.app)
 
 ## 🤝 Contributing
 
